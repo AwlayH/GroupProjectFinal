@@ -24,7 +24,19 @@ function clearDisplay() {
     firstNumber = null;
     operator = null;
     shouldResetDisplay = false;
-    display.value ="";
+    display.value ="0";
+}
+
+const backspace = () => {
+  console.log("Deleting the last character");
+  console.log(currentInput);
+  currentInput = currentInput.slice(0, -1);
+  console.log(currentInput);
+  
+ display.value = currentInput || "0";
+
+  
+  
 }
 
 function setOperator(op) {
@@ -36,21 +48,39 @@ function setOperator(op) {
 }
 
 function calculate() {
-    if (operator === null || shouldResetDisplay) return;
+    console.log(currentInput);
+    if (currentInput === ""){
+        alert("Please enter number before pressing equals sign.");
+        display.value = "really? :O"
+        return;
+    }
+    else if (operator === null  || shouldResetDisplay) return;
 
     const secondNumber = parseFloat(currentInput);
     console.log(`Calculating: ${firstNumber} ${operator} ${secondNumber}`);
 
-    const result = operate(operator, firstNumber, secondNumber)
+    let result = operate(operator, firstNumber, secondNumber)
 
     console.log(`Result: ${result}`)
 
+     if (result == "error dividing") {
+        console.log("I am executed")
+        display.value = "lmao";
+        currentInput = "";
+    }else if ( (result* 1e5 % 1) !== 0) {
+     result = Math.floor(result * 100)/100;
+     display.value = result;
+     currentInput = result.toString();
+     operator = null;
+     firstNumber = null;
+     shouldResetDisplay = true;
+    }else {
     display.value = result;
     currentInput = result.toString();
     operator = null;
     firstNumber = null;
     shouldResetDisplay = true;
-
+    } 
 }
 
 
@@ -68,7 +98,9 @@ function multiply(x, y) {
 
 function divide(x,y) {
     if (y === 0) {
-        return "Nice try. You can't divide by 0 🙃";
+        alert("Nice try. You can't divide by 0 🙃");
+        display.value = "0";
+        return "error dividing";
     }
     return x / y;
 }
