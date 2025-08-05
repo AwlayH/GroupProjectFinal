@@ -1,3 +1,16 @@
+const display = document.getElementById("display");
+
+function appendNumber(number){
+    display.value += number;
+}
+
+function clearDisplay() {
+    display.value ="";
+}
+
+function calculate() {
+
+}
 function add(x, y) {
     return x + y;
 }
@@ -16,18 +29,6 @@ function divide(x,y) {
     }
     return x / y;
 }
-
-function display() {
-
-}
-function clearDisplay() {
-    display.value ="";
-}
-
-function input() {
-
-}
-
 
 function operate(operator, x, y) {
     switch (operator) {
