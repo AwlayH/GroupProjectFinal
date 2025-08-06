@@ -7,6 +7,10 @@
 
 
 function appendNumber(number){
+    if (number === '.' && currentInput.includes('.')) {
+        window.alert("Already contains a decimal point");
+        return;
+    }
     if (shouldResetDisplay) {
         console.log("reset input after operator")
         currentInput = "";
@@ -120,3 +124,29 @@ function operate(operator, x, y) {
     }
 }
 
+document.addEventListener("keydown", function (e) {
+    const key = e.key;
+
+    
+    if (!isNaN(key) || key === '.') {
+        appendNumber(key);
+        return;
+    }
+
+    if (key === '+' || key === '-' || key === '/' || key === 'x' || key === 'X') {
+        const opMap = {
+            '+': '+','-': '-','x': 'X','X': 'X','/': '÷'
+        };
+        setOperator(opMap[key]);
+        return;
+    }
+
+    if (key === 'Enter' || key === '=') {
+        calculate();
+        return;
+    }
+    if (key === 'Backspace') {
+        backspace();
+        return;
+    }
+});
