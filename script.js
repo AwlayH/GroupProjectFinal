@@ -130,4 +130,8 @@
          backspace();
          return;
      }
+     if (key === 'Delete' || key === 'c'||key === 'C') {
+        clearDisplay();
+        return;
+     }
  });
